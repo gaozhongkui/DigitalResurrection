@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>AR 预览</title>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #0d0d1a;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 100%;
+      --poster-color: transparent;
+    }
+
+    .title-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 48px 20px 16px;
+      background: linear-gradient(to bottom, rgba(13,13,26,0.9) 0%, transparent 100%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .title-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .title-text {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    .title-sub {
+      color: rgba(255,255,255,0.6);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    #ar-button {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #6750A4, #9c27b0);
+      color: #fff;
+      border: none;
+      border-radius: 32px;
+      padding: 14px 32px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 6px 24px rgba(103, 80, 164, 0.55);
+      white-space: nowrap;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    #ar-button:active {
+      transform: translateX(-50%) scale(0.96);
+      box-shadow: 0 3px 12px rgba(103, 80, 164, 0.4);
+    }
+
+    #ar-button svg {
+      flex-shrink: 0;
+    }
+
+    .hint {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.45);
+      font-size: 12px;
+      text-align: center;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    /* Loading indicator */
+    model-viewer::part(default-progress-bar) {
+      background-color: #6750A4;
+    }
+  </style>
+</head>
+<body>
+
+  <model-viewer
+    id="viewer"
+    src="https://appassets.androidplatform.net/assets/test.glb"
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    camera-controls
+    auto-rotate
+    auto-rotate-delay="500"
+    rotation-per-second="25deg"
+    shadow-intensity="1.2"
+    shadow-softness="0.6"
+    environment-image="neutral"
+    exposure="1.0"
+    tone-mapping="commerce">
+
+    <button id="ar-button" slot="ar-button">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 4v6h2V5h5V3H4c-.55 0-1 .45-1 1zm0 16v-6h2v5h5v2H4c-.55 0-1-.45-1-1zm18-4h-2v5h-5v2h6c.55 0 1-.45 1-1v-6zm0-12v6h-2V5h-5V3h6c.55 0 1 .45 1 1z"/>
+      </svg>
+      使用 AR 查看
+    </button>
+
+  </model-viewer>
+
+  <div class="title-bar">
+    <svg class="title-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" r="16" fill="rgba(103,80,164,0.3)"/>
+      <path d="M16 7L23 11V21L16 25L9 21V11L16 7Z" stroke="#b39ddb" stroke-width="1.5" fill="none"/>
+      <circle cx="16" cy="16" r="3" fill="#9c27b0"/>
+    </svg>
+    <div>
+      <div class="title-text">数字复活</div>
+      <div class="title-sub">3D · AR 预览</div>
+    </div>
+  </div>
+
+  <div class="hint">双指缩放 · 单指旋转</div>
+
+</body>
+</html>
